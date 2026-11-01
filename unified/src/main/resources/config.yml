@@ -1,0 +1,21 @@
+# One user-facing wardrobe. AxiomWardrobe 0.8 owns website, skins and selections.
+# HMCCosmetics 2.9.3 owns all renderers. No real items or Vault operations here.
+backend:
+  sync-ticks: 40
+  hide-helmet-in-creative: true
+  mappings:
+    cape_scarlet: ''
+    cape_royal: ''
+    cape_shadow: ''
+    wings_elytra: ''
+    wings_angel: ''
+    wings_nether: ''
+    hat_crown: ''
+    hat_witch: ''
+    hat_ice: ''
+    backpack_chest: ''
+    backpack_ender: ''
+    pet_star: ''
+    pet_bee: ''
+ui:
+  main-title: '&dThe Axiom &8| &fГардероб'
