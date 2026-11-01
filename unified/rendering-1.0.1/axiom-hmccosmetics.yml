@@ -1,0 +1,109 @@
+# PAPER carrier and model-id ensure no functional ELYTRA is granted.
+axiom_cape_scarlet:
+  slot: BACKPACK
+  permission: hmccosmetics.axiom.cape_scarlet
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:cape_scarlet
+    name: '<aqua>Алый плащ</aqua>'
+    amount: 1
+axiom_cape_royal:
+  slot: BACKPACK
+  permission: hmccosmetics.axiom.cape_royal
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:cape_royal
+    name: '<aqua>Королевский плащ</aqua>'
+    amount: 1
+axiom_cape_shadow:
+  slot: BACKPACK
+  permission: hmccosmetics.axiom.cape_shadow
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:cape_shadow
+    name: '<aqua>Теневой плащ</aqua>'
+    amount: 1
+axiom_wings_elytra:
+  slot: BACKPACK
+  permission: hmccosmetics.axiom.wings_elytra
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:wings_elytra
+    name: '<aqua>Крылья странника</aqua>'
+    amount: 1
+axiom_wings_angel:
+  slot: BACKPACK
+  permission: hmccosmetics.axiom.wings_angel
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:wings_angel
+    name: '<aqua>Крылья ангела</aqua>'
+    amount: 1
+axiom_wings_nether:
+  slot: BACKPACK
+  permission: hmccosmetics.axiom.wings_nether
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:wings_nether
+    name: '<aqua>Крылья Незера</aqua>'
+    amount: 1
+axiom_hat_crown:
+  slot: HELMET
+  permission: hmccosmetics.axiom.hat_crown
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:hat_crown
+    name: '<aqua>Золотая корона</aqua>'
+    amount: 1
+axiom_hat_witch:
+  slot: HELMET
+  permission: hmccosmetics.axiom.hat_witch
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:hat_witch
+    name: '<aqua>Шляпа ведьмы</aqua>'
+    amount: 1
+axiom_hat_ice:
+  slot: HELMET
+  permission: hmccosmetics.axiom.hat_ice
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:hat_ice
+    name: '<aqua>Ледяной венец</aqua>'
+    amount: 1
+axiom_backpack_chest:
+  slot: BACKPACK
+  permission: hmccosmetics.axiom.backpack_chest
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:backpack_chest
+    name: '<aqua>Рюкзак путешественника</aqua>'
+    amount: 1
+axiom_backpack_ender:
+  slot: BACKPACK
+  permission: hmccosmetics.axiom.backpack_ender
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:backpack_ender
+    name: '<aqua>Рюкзак Энда</aqua>'
+    amount: 1
+axiom_pet_star:
+  slot: BALLOON
+  permission: hmccosmetics.axiom.pet_star
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:pet_star
+    name: '<aqua>Звёздный спутник</aqua>'
+    amount: 1
+  show-lead: false
+  balloon-offset: 0.65,2.1,0.65
+axiom_pet_bee:
+  slot: BALLOON
+  permission: hmccosmetics.axiom.pet_bee
+  item:
+    material: PAPER
+    model-id: axiomcosmetics:pet_bee
+    name: '<aqua>Пчела-спутник</aqua>'
+    amount: 1
+  show-lead: false
+  balloon-offset: 0.65,2.1,0.65
