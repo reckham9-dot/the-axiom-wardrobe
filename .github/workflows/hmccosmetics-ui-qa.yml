@@ -1,0 +1,42 @@
+name: Validate The Axiom HMCCosmetics UI overlay
+
+on:
+  push:
+    branches: [integration/hmccosmetics-pilot]
+    paths:
+      - 'integration/hmccosmetics/ui/**'
+      - '.github/workflows/hmccosmetics-ui-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ui-config-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PyYAML
+        run: python3 -m pip install --user pyyaml
+      - name: Check menus and cosmetic IDs
+        shell: python
+        run: |
+          import pathlib,yaml
+          base=pathlib.Path("integration/hmccosmetics/ui")
+          names=["hats","backpacks","hands","balloons"]
+          cosmetics=yaml.safe_load((base/"cosmetics/defaultcosmetics.yml").read_text())
+          assert len(cosmetics)>=15
+          for name in names:
+              path=base/f"menus/defaultmenu_{name}.yml"
+              data=yaml.safe_load(path.read_text())
+              assert data["rows"]==6
+              assert "The Axiom" in data["title"]
+              assert len(data["items"])>=4
+              for k,item in data["items"].items():
+                  if item.get("type")=="cosmetic":
+                      assert item["cosmetic"] in cosmetics,(path,k)
+                  if k.startswith("button_"):
+                      assert "model-data" not in item["item"]
+                      assert item["item"]["material"] in ("CARVED_PUMPKIN","ELYTRA","LANTERN","LEAD")
+          print("Validated 4 menus and",len(cosmetics),"cosmetic definitions")
