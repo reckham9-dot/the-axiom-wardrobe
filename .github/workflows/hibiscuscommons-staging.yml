@@ -1,0 +1,51 @@
+name: Resolve HibiscusCommons for The Axiom (staging only)
+
+on:
+  push:
+    branches: [integration/hmccosmetics-pilot]
+    paths: ['.github/workflows/hibiscuscommons-staging.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect-official-commons:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Download exact official dependency used by HMCCosmetics source
+        run: |
+          mkdir -p dist
+          curl --fail --location --retry 2 --silent --show-error "https://repo.hibiscusmc.com/releases/me/lojosho/HibiscusCommons/0.9.3/HibiscusCommons-0.9.3.jar" -o dist/HibiscusCommons-0.9.3.jar
+          unzip -l dist/HibiscusCommons-0.9.3.jar | head -20
+      - name: Verify that jar is deployable Paper plugin with Java21 bytecode
+        shell: python
+        run: |
+          import pathlib,zipfile,struct
+          p=pathlib.Path("dist/HibiscusCommons-0.9.3.jar")
+          with zipfile.ZipFile(p) as z:
+              files=set(z.namelist())
+              assert "plugin.yml" in files, "Maven artifact is API-only, not deployable plugin"
+              meta=z.read("plugin.yml").decode()
+              print(meta[:1500])
+              assert "HibiscusCommons" in meta
+              main="me/lojosho/hibiscuscommons/HibiscusCommonsPlugin.class"
+              assert main in files, "Plugin main class missing"
+              b=z.read(main)
+              assert b[:4]==b"\xca\xfe\xba\xbe"
+              version=struct.unpack(">H",b[6:8])[0]
+              print("Main class major version:",version)
+              assert version<=65, "Main class needs Java newer than Java21"
+      - name: Save checksum
+        run: sha256sum dist/* > dist/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HibiscusCommons-0.9.3-staging
+          path: dist
+          retention-days: 7
