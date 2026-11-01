@@ -1,0 +1,16 @@
+name: AxiomWardrobeUnified
+version: 1.0.0-rc1
+main: online.theaxiom.wardrobe.unified.AxiomWardrobeUnifiedPlugin
+api-version: '1.21.11'
+author: The Axiom
+depend: [AxiomWardrobe, HMCCosmetics]
+commands:
+  axiomstyle:
+    description: The Axiom unified wardrobe
+    permission: axiomwardrobe.use
+    usage: /axiomstyle [status|reload|sync]
+permissions:
+  axiomwardrobe.use:
+    default: true
+  axiomwardrobe.unified.admin:
+    default: op
