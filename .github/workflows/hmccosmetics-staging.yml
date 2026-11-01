@@ -1,0 +1,53 @@
+name: Validate upstream HMCCosmetics for The Axiom (staging only)
+
+on:
+  push:
+    branches:
+      - integration/hmccosmetics-pilot
+    paths:
+      - '.github/workflows/hmccosmetics-staging.yml'
+      - 'integration/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compile-upstream:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout Axiom integration manifest
+        uses: actions/checkout@v4
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Clone GPLv3 source from upstream; pin audited commit
+        run: |
+          git clone --filter=blob:none https://github.com/HibiscusMC/HMCCosmetics.git upstream
+          git -C upstream checkout 92d9193f05f08d083c06be1f2597fc4016940b80
+          git -C upstream rev-parse HEAD
+          test -f upstream/license.md
+      - name: Gradle verify build (real server APIs, no stubs)
+        working-directory: upstream
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon --stacktrace shadowJar
+      - name: Inspect plugin jar and preserve license
+        shell: bash
+        run: |
+          set -euo pipefail
+          find upstream/build/libs -name 'HMCCosmeticsRemapped-*.jar' -print
+          jar tf upstream/build/libs/HMCCosmeticsRemapped-*.jar | grep -E '(^plugin.yml$|^com/hibiscusmc/hmccosmetics/HMCCosmeticsPlugin.class$)'
+          mkdir -p dist
+          cp upstream/build/libs/HMCCosmeticsRemapped-*.jar dist/
+          cp upstream/license.md dist/GPL-3.0-license.md
+          sha256sum dist/* > dist/SHA256SUMS.txt
+      - name: Upload staging-only artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: HMCCosmetics-upstream-verified-staging
+          path: dist/
+          retention-days: 7
