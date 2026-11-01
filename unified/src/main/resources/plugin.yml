@@ -5,10 +5,10 @@ api-version: '1.21.11'
 author: The Axiom
 depend: [AxiomWardrobe, HMCCosmetics]
 commands:
-  axiomstyle:
+  axiomwardrobe:
     description: The Axiom unified wardrobe
     permission: axiomwardrobe.use
-    usage: /axiomstyle [status|reload|sync]
+    usage: /axiomwardrobe [status|reload|sync]
 permissions:
   axiomwardrobe.use:
     default: true
