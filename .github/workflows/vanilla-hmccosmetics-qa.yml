@@ -1,5 +1,4 @@
-name: QA no-resourcepack vanilla HMCCosmetics pilot
-
+name: Security gate — no functional vanilla cosmetic pilot
 on:
   push:
     branches: [integration/hmccosmetics-pilot]
@@ -7,38 +6,17 @@ on:
       - 'integration/hmccosmetics/vanilla-pilot/**'
       - '.github/workflows/vanilla-hmccosmetics-qa.yml'
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
-  verify:
+  retired-pilot-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 -m pip install --user pyyaml
-      - name: Confirm YAML and vanilla-only material references
-        shell: python
+      - name: Reject withdrawn, equippable test assets
         run: |
-          import yaml,pathlib
-          base=pathlib.Path("integration/hmccosmetics/vanilla-pilot")
-          raw=(base/"cosmetics/axiom_vanilla_pilot.yml").read_text()
-          cr=yaml.safe_load(raw)
-          assert len(cr)==4,cr
-          assert set(c["slot"] for c in cr.values())=={"HELMET","CHESTPLATE"}
-          mats={v["item"]["material"] for v in cr.values()}
-          assert mats=={"GOLDEN_HELMET","IRON_HELMET","NETHERITE_HELMET","ELYTRA"}
-          assert "model-data:" not in raw and "item-model:" not in raw
-          assert all(c["permission"].startswith("hmccosmetics.axiom_") for c in cr.values())
-          menu=yaml.safe_load((base/"menus/axiom_vanilla_pilot.yml").read_text())
-          assert menu["rows"]==3
-          assert "The Axiom" in menu["title"]
-          refs=[v["cosmetic"] for v in menu["items"].values() if v.get("type")=="cosmetic"]
-          assert len(refs)==4 and set(refs)==set(cr),refs
-          slots=[]
-          for v in menu["items"].values(): slots.extend(v["slots"])
-          assert len(slots)==len(set(slots)),slots
-          for v in menu["items"].values():
-              if v.get("type")=="empty" and "actions" in v:
-                  assert all(s.startswith("[PLAYER-COMMAND]") or s.startswith("[SOUND]") for s in v["actions"]["any"])
-          print("PASS: 4 vanilla cosmetics, 7 menu elements, unique slots and no custom pack dependencies")
+          test -f integration/hmccosmetics/vanilla-pilot/README-RU.md
+          test ! -e integration/hmccosmetics/vanilla-pilot/cosmetics/axiom_vanilla_pilot.yml
+          test ! -e integration/hmccosmetics/vanilla-pilot/menus/axiom_vanilla_pilot.yml
+          grep -q 'SECURITY BLOCKER' integration/hmccosmetics/vanilla-pilot/README-RU.md
+          echo "PASS: unsafe vanilla armor/elytra pilot is retired"
