@@ -1,0 +1,44 @@
+name: Wardrobe JSON bridge contract
+
+on:
+  push:
+    branches: [feature/axiom-wardrobe-unified-1.0]
+    paths:
+      - 'bridge-jsonfix/**'
+      - '.github/workflows/wardrobe-bridge-json-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bridge-json-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Compile JSON body encoder and check PHP contract shape
+        run: |
+          mkdir -p bridge-jsonfix/out
+          javac --release 21 -d bridge-jsonfix/out bridge-jsonfix/src/online/theaxiom/wardrobe/WardrobeJsonBody.java
+          javap -cp bridge-jsonfix/out online.theaxiom.wardrobe.WardrobeJsonBody | grep -q 'encode(java.lang.String, java.lang.String)'
+          cat > bridge-jsonfix/JsonTest.java <<'EOF'
+          import online.theaxiom.wardrobe.WardrobeJsonBody;
+          public class JsonTest {
+            public static void main(String[] args) {
+              String data=WardrobeJsonBody.encode("hat","hat_crown");
+              if (!data.equals("{\"kind\":\"hat\",\"item_id\":\"hat_crown\"}")) throw new AssertionError(data);
+              for (String invalid : new String[]{"ELYTRA","wrong-characters",""}) {
+                try { WardrobeJsonBody.encode("wings",invalid); throw new AssertionError(invalid); }
+                catch (IllegalArgumentException expected) {}
+              }
+              System.out.println("JSON body matches wardrobe_v1.php contract");
+            }
+          }
+          EOF
+          javac --release 21 -cp bridge-jsonfix/out -d bridge-jsonfix/out bridge-jsonfix/JsonTest.java
+          java -cp bridge-jsonfix/out JsonTest
