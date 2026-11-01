@@ -71,7 +71,7 @@ public final class AxiomWardrobeUnifiedPlugin extends JavaPlugin implements List
             getLogger().log(Level.SEVERE,"Unsupported AxiomWardrobe/HMCCosmetics version",ex);
             Bukkit.getPluginManager().disablePlugin(this);return;
         }
-        Objects.requireNonNull(getCommand("axiomstyle")).setExecutor(this);
+        Objects.requireNonNull(getCommand("axiomwardrobe")).setExecutor(this);
         Bukkit.getPluginManager().registerEvents(this,this);
         begin();
         getLogger().info("Unified wardrobe enabled: skins and site retained; "+IDS.length+" cosmetics in GUI.");
