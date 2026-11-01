@@ -1,0 +1,16 @@
+# The Axiom Rendering 1.0.1 — copy only backend.mappings into existing Unified config
+backend:
+  mappings:
+    cape_scarlet: 'axiom_cape_scarlet'
+    cape_royal: 'axiom_cape_royal'
+    cape_shadow: 'axiom_cape_shadow'
+    wings_elytra: 'axiom_wings_elytra'
+    wings_angel: 'axiom_wings_angel'
+    wings_nether: 'axiom_wings_nether'
+    hat_crown: 'axiom_hat_crown'
+    hat_witch: 'axiom_hat_witch'
+    hat_ice: 'axiom_hat_ice'
+    backpack_chest: 'axiom_backpack_chest'
+    backpack_ender: 'axiom_backpack_ender'
+    pet_star: 'axiom_pet_star'
+    pet_bee: 'axiom_pet_bee'
