@@ -1,6 +1,6 @@
 # AxiomWardrobe Unified 1.0 RC1
 
-Полноценная **интеграционная сборка** сединых интерфейсом /axiomstyle для The Axiom (Paper 1.21.11, Java 21).
+Полноценная **интеграционная сборка** сединых интерфейсом /axiomwardrobe для The Axiom (Paper 1.21.11, Java 21).
 
 - AxiomWardrobe 0.8 — источник 93 скинов, 16 косметических выборов, сайта, MySQL, AuthMe UUID и рабочих аур
 - HMCCosmetics 2.9.3 — визуальный рендерер косметики через поддерживаемые слоты BACKPACK/HELMET/BALLOON
@@ -14,8 +14,8 @@
 2. Убедись, что все три вышеуказанные зависимости уже установлены.
 3. Оставь skins.apply-enabled=true, bridge.enabled=true, cosmetics.render-enabled=true, cosmetics.custom-models-enabled=false и cosmetics.visual-preview-unsafe-enabled=false.
 4. Установи JAR из GitHub Actions: .github/workflows/unified-wardrobe-ci.yml.
-5. Выполни /axiomstyle в Minecraft, /axiomstyle status в консоли.
-6. В plugins/AxiomWardrobeUnified/config.yml пропиши backend.mappings.<AxiomCosmeticId>: <HMCCosmeticsCosmeticId> для действительно установленных косметических моделей, затем /axiomstyle reload.
+5. Выполни /axiomwardrobe в Minecraft, /axiomwardrobe status в консоли.
+6. В plugins/AxiomWardrobeUnified/config.yml пропиши backend.mappings.<AxiomCosmeticId>: <HMCCosmeticsCosmeticId> для действительно установленных косметических моделей, затем /axiomwardrobe reload.
 7. Проверь внешний вид со второго клиента. Для удаления интеграции достаточно убрать этот JAR, данные сайта и работающие скины останутся.
 
 ## Текущее ограничение
