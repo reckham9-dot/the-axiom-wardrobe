@@ -1,0 +1,33 @@
+# The Axiom — native assets only, no CustomModelData or separate texture pack.
+# Test cosmetics: safe to add alongside original defaultcosmetics.yml
+axiom_gold_guard:
+  slot: HELMET
+  permission: "hmccosmetics.axiom_gold_guard"
+  item:
+    material: GOLDEN_HELMET
+    name: "<gold>Страж Аксима</gold>"
+    amount: 1
+
+axiom_iron_guard:
+  slot: HELMET
+  permission: "hmccosmetics.axiom_iron_guard"
+  item:
+    material: IRON_HELMET
+    name: "<gray>Серебряный страж</gray>"
+    amount: 1
+
+axiom_nether_guard:
+  slot: HELMET
+  permission: "hmccosmetics.axiom_nether_guard"
+  item:
+    material: NETHERITE_HELMET
+    name: "<light_purple>Страж Незера</light_purple>"
+    amount: 1
+
+axiom_elytra_wings:
+  slot: CHESTPLATE
+  permission: "hmccosmetics.axiom_elytra_wings"
+  item:
+    material: ELYTRA
+    name: "<aqua>Крылья странника</aqua>"
+    amount: 1
