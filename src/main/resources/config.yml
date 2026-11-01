@@ -1,0 +1,13 @@
+probe:
+  # Fail-closed. Only enable on a private test server after reviewing logs.
+  enabled: false
+  # IMPORTANT: this must be the actual UUID in PlayerResourcePackStatusEvent,
+  # NOT the MagmaGuy remote hosting session UUID. Read /axiomrig status after joining.
+  required-pack-id: ''
+  item-model: 'theaxiom:wings_nether_probe'
+  # One visual per tester. Passenger anchor measured relative to player seat;
+  # these are calibration values, NOT claimed final attachment coordinates.
+  scale: 0.55
+  x: 0.0
+  y: -0.35
+  z: -0.22

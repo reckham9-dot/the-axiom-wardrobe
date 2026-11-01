@@ -1,0 +1,38 @@
+name: Build AxiomRigProbe against real Paper API
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'pom.xml'
+      - 'src/**'
+      - '.github/workflows/paper-api-build.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+      - name: Compile with Paper API and verify dependency resolution
+        run: mvn -B --no-transfer-progress clean verify
+      - name: Ensure provided Paper API is not packaged into plugin
+        run: |
+          if unzip -Z1 target/AxiomRigProbe-0.9.6-qa5.jar | grep -Eq '^(org/bukkit/|io/papermc/)'; then
+            echo 'Unexpected bundled Paper/Bukkit classes' >&2; exit 1
+          fi
+      - name: Run independent rig regression tests
+        run: ./scripts/check-core.sh
+      - name: Run structure/compatibility checks
+        run: python3 scripts/verify-project.py
+      - name: Confirm descriptor and classes
+        run: |
+          unzip -t target/AxiomRigProbe-0.9.6-qa5.jar
+          unzip -p target/AxiomRigProbe-0.9.6-qa5.jar plugin.yml | grep 'api-version'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AxiomRigProbe-real-PaperAPI-qa
+          path: target/AxiomRigProbe-0.9.6-qa5.jar
+          if-no-files-found: error

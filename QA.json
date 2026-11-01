@@ -1,0 +1,23 @@
+{
+  "version": "0.9.6-qa5",
+  "kind": "SOURCE_ONLY_NOT_INSTALLABLE",
+  "core_checks": 580,
+  "planner_checks": 462,
+  "attachment_checks": 40,
+  "pack_gate_checks": 21,
+  "calibration_checks": 1011,
+  "total_local_assertions": 2114,
+  "project_structure_check": "PASS",
+  "maven_real_paper_api": "NOT_RUN",
+  "paper_client_live": "NOT_RUN",
+  "java_plugin_jar": null,
+  "changes": [
+    "read_only_attachment_inspection",
+    "no_false_positive_mount_acknowledgement",
+    "player_pack_model_diagnostics",
+    "remove_model_immediately_on_pack_rejection",
+    "ignore_stale_pack_event_from_previous_session",
+    "detect_and_fail_closed_when_entity_dismounted_without_yaw_change"
+  ],
+  "adapter_static_lifecycle_checks": "PASS"
+}

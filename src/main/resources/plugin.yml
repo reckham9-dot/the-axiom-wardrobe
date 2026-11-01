@@ -1,0 +1,13 @@
+name: AxiomRigProbe
+version: 0.9.6-qa5
+main: online.theaxiom.wardrobe.probe.AxiomRigProbePlugin
+api-version: '1.21.11'
+author: The Axiom
+description: Isolated admin-only probe for one wing model; does not alter AxiomWardrobe
+commands:
+  axiomrig:
+    usage: /axiomrig status|show|hide|inspect|tune
+    permission: axiomrig.admin
+permissions:
+  axiomrig.admin:
+    default: op
